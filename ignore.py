@@ -1,0 +1,1 @@
+ignore = {"dirs" : [".venv", ".git", ".idea"], "files" : ["ignore.py"] }

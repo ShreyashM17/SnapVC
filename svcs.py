@@ -1,20 +1,21 @@
 import os
 import hashlib
 import pickle
+import ignore
 
-svcs_ignore = ['.venv', '.git', '.idea']
-
-def init_svcs():
-  os.makedirs('.svcs_storage', exist_ok=True)
-  print('SVCS initialized')
+svcs_ignore = ignore.ignore
+dir_ignore = svcs_ignore['dirs']
+files_ignore = svcs_ignore['files']
 
 def snapshot(directory):
   snapshot_hash = hashlib.sha256()
   snapshot_data = {'files': {}}
 
   for root, dirs, files in os.walk(directory):
-    dirs[:] = [d for d in dirs if d not in svcs_ignore]
+    dirs[:] = [d for d in dirs if d not in dir_ignore]
     for file in files:
+      if file in files_ignore:
+        continue
       if '.svcs_storage' in os.path.join(root, file):
         continue
 
@@ -62,16 +63,3 @@ def revert_to_snapshot(hash_digest):
     print(f'Reverted to snapshot {hash_digest}')
   else:
     print('Snapshot does not exist.')
-
-if __name__ == '__main__':
-  import sys
-  command = sys.argv[1]
-
-  if command == 'init':
-    init_svcs()
-  elif command == 'snapshot':
-    snapshot('.')
-  elif command == 'revert':
-    revert_to_snapshot(sys.argv[2])
-  else:
-    print('Unknown command!')
