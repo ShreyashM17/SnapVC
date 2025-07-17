@@ -3,22 +3,15 @@ import hashlib
 import pickle
 import ignore
 
-svcs_ignore = ignore.ignore
-dir_ignore = svcs_ignore['dirs']
-files_ignore = svcs_ignore['files']
+dir_ignore = ignore.dir_ignore
+files_ignore = ignore.files_ignore
 
 def snapshot(directory):
   snapshot_hash = hashlib.sha256()
   snapshot_data = {'files': {}}
 
   for root, dirs, files in os.walk(directory):
-    dirs[:] = [d for d in dirs if d not in dir_ignore]
     for file in files:
-      if file in files_ignore:
-        continue
-      if '.svcs_storage' in os.path.join(root, file):
-        continue
-
       file_path = os.path.join(root, file)
 
       with open(file_path, 'rb') as f:
@@ -29,13 +22,13 @@ def snapshot(directory):
   hash_digest = snapshot_hash.hexdigest()
   snapshot_data['file_list'] = list(snapshot_data['files'].keys())
 
-  with open(f'.svcs_storage/{hash_digest}', 'wb') as f:
+  with open(f'.svcs_storage/snapshot/{hash_digest}', 'wb') as f:
     pickle.dump(snapshot_data, f)
 
   print(f'Snapshot created with hash {hash_digest}')
 
 def revert_to_snapshot(hash_digest):
-  snapshot_path = f'.svcs_storage/{hash_digest}'
+  snapshot_path = f'.svcs_storage/snapshot/{hash_digest}'
   if os.path.exists(snapshot_path):
     with open(snapshot_path, 'rb') as f:
       snapshot_data = pickle.load(f)
@@ -47,7 +40,7 @@ def revert_to_snapshot(hash_digest):
 
     current_files = set()
     for root, dirs, files in os.walk('.', topdown=True):
-      dirs[:] = [d for d in dirs if d not in svcs_ignore]
+      dirs[:] = [d for d in dirs if d not in dir_ignore]
       if '.svcs_storage' in root:
         continue
       for file in files:

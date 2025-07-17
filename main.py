@@ -3,7 +3,12 @@ import os
 
 def init_svcs():
   os.makedirs('.svcs_storage', exist_ok=True)
+  os.makedirs('.svcs_storage/ready', exist_ok=True)
+  os.makedirs('.svcs_storage/snapshot', exist_ok=True)
   print('SVCS initialized')
+
+def svcs_not_initialized():
+  return os.path.exists('.svcs_storage')
 
 if __name__ == '__main__':
   import sys
@@ -11,9 +16,14 @@ if __name__ == '__main__':
 
   if command == 'init':
     init_svcs()
-  elif command == 'snapshot':
-    snapshot('.')
-  elif command == 'revert':
-    revert_to_snapshot(sys.argv[2])
+  elif svcs_not_initialized():
+    if command == 'ready':
+      snapshot('.')
+    if command == 'snapshot':
+      snapshot('.svcs_storage/ready')
+    elif command == 'revert':
+      revert_to_snapshot(sys.argv[2])
+    else:
+      print('Unknown command!')
   else:
-    print('Unknown command!')
+    print("SVCS not initialized")
