@@ -19,7 +19,7 @@ if __name__ == '__main__':
   elif svcs_not_initialized():
     if command == 'ready':
       snapshot('.')
-    if command == 'snapshot':
+    elif command == 'snapshot':
       snapshot('.svcs_storage/ready')
     elif command == 'revert':
       revert_to_snapshot(sys.argv[2])
