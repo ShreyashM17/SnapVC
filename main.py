@@ -1,5 +1,6 @@
-from svcs import snapshot, revert_to_snapshot
+from snapshot import snapshot
 from staging import ready
+from revert import revert_to_snapshot
 import os
 
 def init_svcs():
