@@ -1,4 +1,5 @@
 from svcs import snapshot, revert_to_snapshot
+from staging import ready
 import os
 
 def init_svcs():
@@ -18,7 +19,7 @@ if __name__ == '__main__':
     init_svcs()
   elif svcs_not_initialized():
     if command == 'ready':
-      snapshot('.')
+      ready('.')
     elif command == 'snapshot':
       snapshot('.svcs_storage/ready')
     elif command == 'revert':
