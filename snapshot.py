@@ -18,6 +18,7 @@ def if_directory_empty(directory):
 
 def empty_ready_folder(directory):
   shutil.rmtree(directory)
+  os.makedirs(directory)
 
 def snapshot(directory):
   if not if_directory_empty(directory):
