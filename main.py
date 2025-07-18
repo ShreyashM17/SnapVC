@@ -1,30 +1,38 @@
 from snapshot import snapshot
 from staging import ready
 from revert import revert_to_snapshot
+from housing import new_house
 import os
 
+directory = 'svcs'
+
 def init_svcs():
-  os.makedirs('.svcs_storage', exist_ok=True)
-  os.makedirs('.svcs_storage/ready', exist_ok=True)
-  os.makedirs('.svcs_storage/snapshot', exist_ok=True)
-  print('SVCS initialized')
+  if not svcs_not_initialized():
+    os.makedirs(directory, exist_ok=True)
+    main = f'{directory}/main'
+    new_house(main)
+    print('SVCS initialized you are at main')
+    with open(f"{directory}/house.py", "w") as f:
+      f.write("house='main'")
+  else:
+    print("Already initialized")
 
 def svcs_not_initialized():
-  return os.path.exists('.svcs_storage')
+  return os.path.exists(directory)
 
 if __name__ == '__main__':
   import sys
-  command = sys.argv[1]
+  command = sys.argv
 
-  if command == 'init':
+  if command[1] == 'init':
     init_svcs()
   elif svcs_not_initialized():
-    if command == 'ready':
+    if command[1] == 'ready':
       ready()
-    elif command == 'snapshot':
+    elif command[1] == 'snapshot':
       snapshot('.svcs_storage/ready')
-    elif command == 'revert':
-      revert_to_snapshot(sys.argv[2])
+    elif command[1] == 'revert':
+      revert_to_snapshot(command[2])
     else:
       print('Unknown command!')
   else:
