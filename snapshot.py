@@ -3,11 +3,6 @@ import hashlib
 import pickle
 import shutil
 
-import ignore
-
-dir_ignore = ignore.dir_ignore
-files_ignore = ignore.files_ignore
-
 def if_directory_empty(directory):
   if not os.path.isdir(directory):
     print(f"Error: '{directory}' is not a valid directory.")
