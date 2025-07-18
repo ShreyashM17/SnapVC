@@ -50,7 +50,7 @@ python main.py init
 Use the `ready` command to stage files (the term `ready` is used instead of `stage` to emphasize that files are prepared and marked as ready for snapshotting):
 
 ```bash
-python main.py ready <file1> <file2>
+python main.py ready
 ```
 
 ### Create Snapshot
