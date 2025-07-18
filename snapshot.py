@@ -27,7 +27,7 @@ def snapshot(directory):
         with open(file_path, 'rb') as f:
           content = f.read()
           snapshot_hash.update(content)
-          file_path = file_path.replace(directory,'.')
+          file_path = file_path.replace(directory,'..')
           snapshot_data['files'][file_path] = content
 
     hash_digest = snapshot_hash.hexdigest()

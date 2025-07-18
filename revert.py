@@ -17,14 +17,17 @@ def revert_to_snapshot(hash_digest):
         f.write(content)
 
     current_files = set()
-    for root, dirs, files in os.walk('.', topdown=True):
+    for root, dirs, files in os.walk('..', topdown=True):
       dirs[:] = [d for d in dirs if d not in dir_ignore]
       if '.svcs_storage' in root:
         continue
       for file in files:
+        if file in files_ignore:
+          continue
         current_files.add(os.path.join(root, file))
 
     snapshot_files = set(snapshot_data['file_list'])
+    print(snapshot_files)
     files_to_delete = current_files - snapshot_files
 
     for file_path in files_to_delete:
