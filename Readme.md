@@ -1,6 +1,6 @@
 # Version-Control
 
-A Python-based lightweight version control system inspired by Git. This project provides core version control features such as staging, snapshotting, and reverting.
+A Python-based lightweight version control system inspired by Git, aimed primarily as an educational project to demonstrate core version control concepts such as staging, snapshotting, and reverting, with simplified functionality tailored for learning and experimentation. This project provides core version control features such as staging, snapshotting, and reverting.
 
 ## Features
 
@@ -47,7 +47,7 @@ python main.py init
 
 ### Stage Files
 
-Use the `ready` command to stage files:
+Use the `ready` command to stage files (the term `ready` is used instead of `stage` to emphasize that files are prepared and marked as ready for snapshotting):
 
 ```bash
 python main.py ready <file1> <file2>
