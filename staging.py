@@ -5,7 +5,8 @@ import shutil
 dir_ignore = ignore.dir_ignore
 files_ignore = ignore.files_ignore
 
-def ready(directory):
+def ready():
+  directory = os.path.dirname(os.getcwd())
   temp = r'.svcs_storage/ready'
   for root, dirs, files in os.walk(directory):
     dirs[:] = [d for d in dirs if d not in dir_ignore]
@@ -16,4 +17,9 @@ def ready(directory):
         continue
 
       file_path = f'{os.path.join(root, file)}'
-      shutil.copy(file_path, temp)
+      if root != directory:
+        folder = f'{temp}/{os.path.basename(root)}'
+        os.makedirs(folder, exist_ok=True)
+        shutil.copy(file_path, folder)
+      else:
+        shutil.copy(file_path, temp)

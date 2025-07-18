@@ -20,7 +20,7 @@ if __name__ == '__main__':
     init_svcs()
   elif svcs_not_initialized():
     if command == 'ready':
-      ready('.')
+      ready()
     elif command == 'snapshot':
       snapshot('.svcs_storage/ready')
     elif command == 'revert':
