@@ -1,7 +1,7 @@
 from snapshot import snapshot, working_version, current_version
 from staging import ready
 from revert import revert_to_snapshot
-from housing import new_house, current_house, move_house
+from housing import new_house, current_house, move_house, all_house
 import os
 import sys
 
@@ -17,11 +17,29 @@ def init_svcs():
     print(f'SVCS initialized\n {name}')
     with open(f"{directory}/house.txt", "w") as f:
       f.write("main")
+    with open(f"{directory}/all_house.txt", "w") as f:
+      f.write("main")
   else:
     print("Already initialized")
 
 def svcs_initialized():
   return os.path.exists(directory)
+
+def help_command():
+  all_commands = '''
+  List of all available commands
+  - init  #To initialize svcs
+  - house # View current house
+  - house show #To view all the present houses
+  - house <house-name> # Switch back to a house
+  - house new <feature-branch>  # Create a new feature house
+  - current # To get current version
+  - snaps # To get total number of versions
+  - ready # Stage your changes
+  - snapshot # Create a snapshot
+  - revert <version> # Revert to a version if needed
+  '''
+  return all_commands
 
 def main():
   global house
@@ -39,6 +57,8 @@ def main():
             print(statement)
           else:
             print("Please define house name")
+        elif command[2] == 'show':
+            print(f"You have houses at\n {all_house(directory)}")
         else:
           statement = move_house(directory, command[2])
           print(statement)
@@ -56,6 +76,7 @@ def main():
       print(f'There are {current_version(f'{directory}/{house}/snapshot')} snaps')
     else:
       print('Unknown command!')
+      print(help_command())
   else:
     print("SVCS not initialized")
 

@@ -34,6 +34,8 @@ def current_house(directory):
 def update_house(path, house):
   with open(f"{path}/house.txt", "w") as f:
     f.write(house)
+  with open(f"{path}/all_house.txt", "a") as f:
+    f.write(f"\n{house}")
 
 def move_house(path, house):
   if os.path.exists(f'{path}/{house}'):
@@ -41,3 +43,9 @@ def move_house(path, house):
     return f'You are at {house}'
   else:
     return 'House does not exists'
+
+def all_house(path):
+  house = open(f'{path}/all_house.txt', 'r')
+  all_houses = house.read().strip()
+  house.close()
+  return all_houses
