@@ -5,8 +5,8 @@ import ignore
 dir_ignore = ignore.dir_ignore
 files_ignore = ignore.files_ignore
 
-def revert_to_snapshot(hash_digest):
-  snapshot_path = f'.svcs_storage/snapshot/{hash_digest}'
+def revert_to_snapshot(directory, house, version):
+  snapshot_path = f'{directory}/{house}/snapshot/{version}'
   if os.path.exists(snapshot_path):
     with open(snapshot_path, 'rb') as f:
       snapshot_data = pickle.load(f)
@@ -19,7 +19,7 @@ def revert_to_snapshot(hash_digest):
     current_files = set()
     for root, dirs, files in os.walk('..', topdown=True):
       dirs[:] = [d for d in dirs if d not in dir_ignore]
-      if '.svcs_storage' in root:
+      if 'svcs' in root:
         continue
       for file in files:
         if file in files_ignore:
@@ -34,6 +34,6 @@ def revert_to_snapshot(hash_digest):
       os.remove(file_path)
       print(f'Remove {file_path}')
 
-    print(f'Reverted to snapshot {hash_digest}')
+    print(f'Reverted to snapshot {version}')
   else:
     print('Snapshot does not exist.')

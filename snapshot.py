@@ -35,14 +35,13 @@ def snapshot(directory, current_house):
 
     hash_digest = snapshot_hash.hexdigest()
     snapshot_data['file_list'] = list(snapshot_data['files'].keys())
-
+    update_version(snapshot_directory)
     save_at = f'{snapshot_directory}/{current_version(snapshot_directory)}'
     os.makedirs(save_at)
     with open(f'{save_at}/{hash_digest}', 'wb') as f:
       pickle.dump(snapshot_data, f)
 
     print(f'Snapshot created with hash {hash_digest}')
-    update_version(snapshot_directory)
     empty_ready_folder(ready_directory)
   else:
     print("Nothing to Snapshot")

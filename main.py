@@ -11,12 +11,11 @@ def init_svcs():
   global house
   if not svcs_not_initialized():
     os.makedirs(directory, exist_ok=True)
-    main = f'{directory}/main'
-    new_house(main)
+    house = 'main'
+    new_house(directory,house)
     print('SVCS initialized you are at main')
     with open(f"{directory}/house.txt", "w") as f:
       f.write("main")
-    house = 'main'
   else:
     print("Already initialized")
 
@@ -36,7 +35,7 @@ if __name__ == '__main__':
     elif command[1] == 'snapshot':
       snapshot(directory, house)
     elif command[1] == 'revert':
-      revert_to_snapshot(command[2])
+      revert_to_snapshot(directory, house, command[2])
     else:
       print('Unknown command!')
   else:
