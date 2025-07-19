@@ -14,8 +14,8 @@ def init_svcs():
     main = f'{directory}/main'
     new_house(main)
     print('SVCS initialized you are at main')
-    with open(f"{directory}/house.py", "w") as f:
-      f.write("house='main'")
+    with open(f"{directory}/house.txt", "w") as f:
+      f.write("main")
     house = 'main'
   else:
     print("Already initialized")
@@ -30,7 +30,7 @@ if __name__ == '__main__':
   if command[1] == 'init':
     init_svcs()
   elif svcs_not_initialized():
-    house = current_house()
+    house = current_house(directory)
     if command[1] == 'ready':
       ready(directory, house)
     elif command[1] == 'snapshot':
