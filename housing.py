@@ -14,9 +14,12 @@ def generate_rooms(path):
   snapshot = f'{path}/snapshot'
   ready = f'{path}/ready'
   version = f"{snapshot}/version.txt"
+  current_version = f"{snapshot}/current_version.txt"
   os.makedirs(snapshot)
   os.makedirs(ready)
   with open(version, "w") as f:
+    f.write("0")
+  with open(current_version, "w") as f:
     f.write("0")
 
 def current_house(directory):

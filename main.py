@@ -1,15 +1,16 @@
-from snapshot import snapshot
+from snapshot import snapshot, working_version, current_version
 from staging import ready
 from revert import revert_to_snapshot
 from housing import new_house, current_house, move_house
 import os
+import sys
 
 directory = 'svcs'
 house = ''
 
 def init_svcs():
   global house
-  if not svcs_not_initialized():
+  if not svcs_initialized():
     os.makedirs(directory, exist_ok=True)
     house = 'main'
     name = new_house(directory,house)
@@ -19,16 +20,16 @@ def init_svcs():
   else:
     print("Already initialized")
 
-def svcs_not_initialized():
+def svcs_initialized():
   return os.path.exists(directory)
 
-if __name__ == '__main__':
-  import sys
+def main():
+  global house
   command = sys.argv
   command_length = len(command)
   if command[1] == 'init':
     init_svcs()
-  elif svcs_not_initialized():
+  elif svcs_initialized():
     house = current_house(directory)
     if command[1] == 'house':
       if command_length > 2:
@@ -49,7 +50,14 @@ if __name__ == '__main__':
       snapshot(directory, house)
     elif command[1] == 'revert':
       revert_to_snapshot(directory, house, command[2])
+    elif command[1] == 'current':
+      print(f'You are at version {working_version(f'{directory}/{house}/snapshot')}')
+    elif command[1] == 'snaps':
+      print(f'There are {current_version(f'{directory}/{house}/snapshot')} snaps')
     else:
       print('Unknown command!')
   else:
     print("SVCS not initialized")
+
+if __name__ == "__main__":
+  main()

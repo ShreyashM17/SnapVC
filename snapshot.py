@@ -59,4 +59,21 @@ def update_version(snapshot_directory):
   version_file = open(f'{snapshot_directory}/version.txt', 'w')
   version_file.write(f'{version}')
   version_file.close()
+  update_working_version(snapshot_directory)
+  return version
+
+def working_version(snapshot_directory):
+  version_file = open(f'{snapshot_directory}/current_version.txt', 'r')
+  version = version_file.read()
+  version_file.close()
+  return version
+
+def update_working_version(snapshot_directory, new_version = 0):
+  if new_version != 0:
+    version = new_version
+  else:
+    version = current_version(snapshot_directory)
+  version_file = open(f'{snapshot_directory}/current_version.txt', 'w')
+  version_file.write(f'{version}')
+  version_file.close()
   return version

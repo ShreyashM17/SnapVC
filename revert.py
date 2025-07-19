@@ -1,12 +1,14 @@
 import os
 import pickle
 import ignore
+from snapshot import update_working_version
 
 dir_ignore = ignore.dir_ignore
 files_ignore = ignore.files_ignore
 
 def revert_to_snapshot(directory, house, version):
-  version_path = f'{directory}/{house}/snapshot/{version}'
+  root_path = f'{directory}/{house}/snapshot'
+  version_path = f'{root_path}/{version}'
   directory_list = os.listdir('..')
   if os.path.exists(version_path):
     version_files = os.listdir(version_path)
@@ -44,6 +46,7 @@ def revert_to_snapshot(directory, house, version):
         os.remove(file_path)
         removed_files.append(file_path)
       print(f'Removed files: {removed_files}')
+    update_working_version(root_path, version)
     print(f'Reverted to snapshot {version}')
   else:
     print('Snapshot does not exist.')
