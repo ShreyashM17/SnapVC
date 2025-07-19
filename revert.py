@@ -7,15 +7,22 @@ files_ignore = ignore.files_ignore
 
 def revert_to_snapshot(directory, house, version):
   version_path = f'{directory}/{house}/snapshot/{version}'
+  directory_list = os.listdir('..')
   if os.path.exists(version_path):
     version_files = os.listdir(version_path)
     hash_location = version_files[0]
     snapshot_path = f'{version_path}/{hash_location}'
     with open(snapshot_path, 'rb') as f:
       snapshot_data = pickle.load(f)
-
+    created_directory = set()
     for file_path, content in snapshot_data['files'].items():
-      os.makedirs(os.path.dirname(file_path), exist_ok=True)
+      directory_name = os.path.dirname(file_path)
+      if directory_name not in directory_list:
+        if directory_name not in created_directory:
+          os.makedirs(directory_name, exist_ok=True)
+          created_directory.add(directory_name)
+      created_directory.add(directory_name)
+
       with open(file_path, 'wb') as f:
         f.write(content)
 
@@ -30,13 +37,13 @@ def revert_to_snapshot(directory, house, version):
         current_files.add(os.path.join(root, file))
 
     snapshot_files = set(snapshot_data['file_list'])
-    print(snapshot_files)
     files_to_delete = current_files - snapshot_files
-
-    for file_path in files_to_delete:
-      os.remove(file_path)
-      print(f'Remove {file_path}')
-
+    removed_files = []
+    if files_to_delete:
+      for file_path in files_to_delete:
+        os.remove(file_path)
+        removed_files.append(file_path)
+      print(f'Removed files: {removed_files}')
     print(f'Reverted to snapshot {version}')
   else:
     print('Snapshot does not exist.')
