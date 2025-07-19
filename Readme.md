@@ -11,6 +11,7 @@ A Python-based lightweight version control system inspired by Git, designed as a
 - **File Reversion**: Revert to any previous snapshot
 - **Ignore Patterns**: Exclude files and directories using configurable ignore rules
 - **Incremental Versioning**: Automatic version numbering for snapshots
+- **Version Tracking**: View current version and total snapshot count
 
 ## 📁 Project Structure
 
@@ -59,6 +60,11 @@ Houses are similar to Git branches, allowing you to work on different versions s
 python main.py house
 ```
 
+**View all available houses:**
+```bash
+python main.py house show
+```
+
 **Create a new house:**
 ```bash
 python main.py house new <house_name>
@@ -88,6 +94,18 @@ Each snapshot is assigned:
 - A SHA-256 hash for integrity verification
 - Binary serialization for efficient storage
 
+### Version Information
+
+**Check current version:**
+```bash
+python main.py current
+```
+
+**Check total number of snapshots:**
+```bash
+python main.py snaps
+```
+
 ### Revert to Previous Snapshots
 
 Revert your working directory to a specific snapshot:
@@ -105,6 +123,7 @@ This will:
 ```
 svcs/
 ├── house.txt              # Current active house
+├── all_house.txt          # List of all available houses
 ├── <house_name>/
 │   ├── ready/             # Staging area for files
 │   └── snapshot/
@@ -142,11 +161,20 @@ python main.py init
 # Create a new feature house
 python main.py house new feature-branch
 
+# View all available houses
+python main.py house show
+
 # Stage your changes
 python main.py ready
 
 # Create a snapshot
 python main.py snapshot
+
+# Check current version
+python main.py current
+
+# Check total snapshots
+python main.py snaps
 
 # Switch back to main
 python main.py house main
@@ -158,13 +186,30 @@ python main.py house
 python main.py revert 1
 ```
 
+## 📋 Complete Command Reference
+
+| Command | Description |
+|---------|-------------|
+| `python main.py init` | Initialize SVCS repository |
+| `python main.py house` | Show current active house |
+| `python main.py house show` | List all available houses |
+| `python main.py house <name>` | Switch to specified house |
+| `python main.py house new <name>` | Create new house |
+| `python main.py ready` | Stage files for snapshot |
+| `python main.py snapshot` | Create snapshot from staged files |
+| `python main.py current` | Show current version number |
+| `python main.py snaps` | Show total number of snapshots |
+| `python main.py revert <version>` | Revert to specified version |
+
 ## ⚠️ Important Notes
 
 - Run commands from the directory containing your project files (parent of the `svcs` directory)
+- SVCS must be initialized before using any commands (except `init`)
 - Snapshots are created using binary serialization - they're platform-independent but not human-readable
 - Reverting will **permanently delete** files not present in the target snapshot
 - House names are case-sensitive
 - Version numbers start from 1 and increment automatically
+- Unknown commands will display a help message with available options
 
 ## 🎯 Educational Focus
 
@@ -174,6 +219,7 @@ This project demonstrates key version control concepts:
 - **Binary serialization** for efficient storage
 - **Branch-like systems** for parallel development
 - **File tracking** and change detection
+- **Command-line interface** design patterns
 
 ## 🤝 Contributing
 
