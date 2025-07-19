@@ -11,7 +11,7 @@ def generate_rooms(path):
   os.makedirs(snapshot)
   os.makedirs(ready)
   with open(version, "w") as f:
-    f.write("1")
+    f.write("0")
 
 def current_house():
   try:
