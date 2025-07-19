@@ -8,7 +8,8 @@ files_ignore = ignore.files_ignore
 def revert_to_snapshot(directory, house, version):
   version_path = f'{directory}/{house}/snapshot/{version}'
   if os.path.exists(version_path):
-    hash_location = os.listdir(version_path)
+    version_files = os.listdir(version_path)
+    hash_location = version_files[0]
     snapshot_path = f'{version_path}/{hash_location}'
     with open(snapshot_path, 'rb') as f:
       snapshot_data = pickle.load(f)
