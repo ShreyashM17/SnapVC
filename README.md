@@ -298,7 +298,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Shreyash Mogaveera**
-- Email: shreyashmogaveera@gmail.com
 - GitHub: [@ShreyashM17](https://github.com/ShreyashM17)
 
 ## 🤝 Contributing
