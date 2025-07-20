@@ -1,38 +1,45 @@
----
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
+# 🐞 Bug Report
+
+Thanks for reporting a bug!
 
 ---
 
-**Describe the bug**
+## 📋 Description
+
 A clear and concise description of what the bug is.
 
-**To Reproduce**
+---
+
+## 🚶‍♂️ Steps to Reproduce
+
 Steps to reproduce the behavior:
 1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+2. Run `svcs ...`
+3. Observe error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+---
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## 🤔 Expected Behavior
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+What you expected to happen instead.
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+---
 
-**Additional context**
-Add any other context about the problem here.
+## 🧪 Environment Info
+
+- OS: (e.g., macOS 14.4, Windows 11)
+- Python Version: (e.g., 3.11.4)
+- SVCS Version: (e.g., 0.1.1)
+
+---
+
+## 🧾 Logs, Screenshots or Additional Context
+
+Please attach any screenshots, log outputs, or related information.
+
+---
+
+## ✅ Checklist
+
+- [ ] I’ve verified this issue hasn’t already been reported
+- [ ] I’ve provided all required information abov
