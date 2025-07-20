@@ -3,7 +3,7 @@ import hashlib
 import pickle
 import shutil
 
-def if_directory_empty(directory):
+def if_directory_empty(directory) -> bool:
   if not os.path.isdir(directory):
     print(f"Error: '{directory}' is not a valid directory.")
     return False
@@ -11,11 +11,11 @@ def if_directory_empty(directory):
   with os.scandir(directory) as it:
     return next(it, None) is None
 
-def empty_ready_folder(directory):
+def empty_ready_folder(directory) -> None:
   shutil.rmtree(directory)
   os.makedirs(directory)
 
-def snapshot(current_directory, directory, current_house):
+def snapshot(current_directory, directory, current_house) -> None:
   working_directory = os.path.join(directory, current_house)
   ready_directory = os.path.join(working_directory, 'ready')
   snapshot_directory = os.path.join(working_directory, 'snapshot')
@@ -50,14 +50,14 @@ def snapshot(current_directory, directory, current_house):
   else:
     print("Nothing to Snapshot")
 
-def current_version(snapshot_directory):
+def current_version(snapshot_directory) -> str:
   version_file_path = os.path.join(snapshot_directory, 'version.txt')
   version_file = open(version_file_path, 'r')
   version = version_file.read()
   version_file.close()
   return version
 
-def update_version(snapshot_directory):
+def update_version(snapshot_directory) -> int:
   version = current_version(snapshot_directory)
   version = int(version) + 1
   version_file_path = os.path.join(snapshot_directory, 'version.txt')
@@ -67,14 +67,14 @@ def update_version(snapshot_directory):
   update_working_version(snapshot_directory)
   return version
 
-def working_version(snapshot_directory):
+def working_version(snapshot_directory) -> str:
   current_version_file = os.path.join(snapshot_directory, 'current_version.txt')
   version_file = open(current_version_file, 'r')
   version = version_file.read()
   version_file.close()
   return version
 
-def update_working_version(snapshot_directory, new_version = 0):
+def update_working_version(snapshot_directory, new_version = 0) -> str:
   if new_version != 0:
     version = new_version
   else:

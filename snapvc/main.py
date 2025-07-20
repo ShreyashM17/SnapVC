@@ -9,7 +9,7 @@ directory = '.svcs'
 house = ''
 current_directory = os.getcwd()
 
-def init_svcs():
+def init_svcs() -> None:
   global house
   if not svcs_initialized():
     os.makedirs(directory, exist_ok=True)
@@ -25,10 +25,10 @@ def init_svcs():
   else:
     print("Already initialized")
 
-def svcs_initialized():
+def svcs_initialized() -> bool:
   return os.path.exists(directory)
 
-def help_command():
+def help_command() -> str:
   all_commands = '''
   List of all available commands
   - init  #To initialize svcs
@@ -44,7 +44,7 @@ def help_command():
   '''
   return all_commands
 
-def main():
+def main() -> None:
   global house
   command = sys.argv
   command_length = len(command)

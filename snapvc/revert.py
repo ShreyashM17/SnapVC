@@ -3,7 +3,7 @@ import pickle
 from .ignore import dir_ignore, files_ignore
 from .snapshot import update_working_version
 
-def revert_to_snapshot(current_directory, directory, house, version):
+def revert_to_snapshot(current_directory, directory, house, version) -> None:
   root_path = os.path.join(directory, house, 'snapshot')
   version_path = os.path.join(root_path, version)
   directory_list = os.listdir(current_directory)
