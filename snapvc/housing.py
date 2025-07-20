@@ -1,6 +1,6 @@
 import os
 
-def new_house(path, house_name) -> str:
+def new_house(path :str, house_name :str) -> str:
   location = os.path.join(path, house_name)  # Cross-platform path
   if os.path.exists(location):
     return 'Already exists please choose other name'
@@ -10,7 +10,7 @@ def new_house(path, house_name) -> str:
     update_house(path, house_name)
     return f'You are at {house_name}'
 
-def generate_rooms(path) -> None:
+def generate_rooms(path :str) -> None:
   snapshot = os.path.join(path, 'snapshot')  # Cross-platform path
   ready = os.path.join(path, 'ready')  # Cross-platform path
   version = os.path.join(snapshot, "version.txt")  # Cross-platform path
@@ -22,7 +22,7 @@ def generate_rooms(path) -> None:
   with open(current_version, "w") as f:
     f.write("0")
 
-def current_house(directory) -> str:
+def current_house(directory :str) -> str:
   try:
     house_file = os.path.join(directory, 'house.txt')  # Cross-platform path
     house = open(house_file,'r')
@@ -33,7 +33,7 @@ def current_house(directory) -> str:
     print('File not found')
     return 'Point of no return'
 
-def update_house(path, house) -> None:
+def update_house(path :str, house :str) -> None:
   house_file = os.path.join(path, "house.txt")  # Cross-platform path
   all_house_file = os.path.join(path, "all_house.txt")  # Cross-platform path
   with open(house_file, "w") as f:
@@ -41,7 +41,7 @@ def update_house(path, house) -> None:
   with open(all_house_file, "a") as f:
     f.write(f"\n{house}")
 
-def move_house(path, house) -> str:
+def move_house(path :str, house :str) -> str:
   house_location = os.path.join(path, house)  # Cross-platform path
   if os.path.exists(house_location):
     update_house(path, house)
@@ -49,7 +49,7 @@ def move_house(path, house) -> str:
   else:
     return 'House does not exists'
 
-def all_house(path) -> str:
+def all_house(path :str) -> str:
   all_house_file = os.path.join(path, 'all_house.txt')  # Cross-platform path
   house = open(all_house_file, 'r')
   all_houses = house.read().strip()

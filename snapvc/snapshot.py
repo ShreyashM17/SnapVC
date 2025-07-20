@@ -3,7 +3,7 @@ import hashlib
 import pickle
 import shutil
 
-def if_directory_empty(directory) -> bool:
+def if_directory_empty(directory :str) -> bool:
   if not os.path.isdir(directory):
     print(f"Error: '{directory}' is not a valid directory.")
     return False
@@ -11,11 +11,11 @@ def if_directory_empty(directory) -> bool:
   with os.scandir(directory) as it:
     return next(it, None) is None
 
-def empty_ready_folder(directory) -> None:
+def empty_ready_folder(directory :str) -> None:
   shutil.rmtree(directory)
   os.makedirs(directory)
 
-def snapshot(current_directory, directory, current_house) -> None:
+def snapshot(current_directory :str, directory :str, current_house :str) -> None:
   working_directory = os.path.join(directory, current_house)
   ready_directory = os.path.join(working_directory, 'ready')
   snapshot_directory = os.path.join(working_directory, 'snapshot')
@@ -50,14 +50,14 @@ def snapshot(current_directory, directory, current_house) -> None:
   else:
     print("Nothing to Snapshot")
 
-def current_version(snapshot_directory) -> str:
+def current_version(snapshot_directory :str) -> str:
   version_file_path = os.path.join(snapshot_directory, 'version.txt')
   version_file = open(version_file_path, 'r')
   version = version_file.read()
   version_file.close()
   return version
 
-def update_version(snapshot_directory) -> int:
+def update_version(snapshot_directory :str) -> int:
   version = current_version(snapshot_directory)
   version = int(version) + 1
   version_file_path = os.path.join(snapshot_directory, 'version.txt')
@@ -67,14 +67,14 @@ def update_version(snapshot_directory) -> int:
   update_working_version(snapshot_directory)
   return version
 
-def working_version(snapshot_directory) -> str:
+def working_version(snapshot_directory :str) -> str:
   current_version_file = os.path.join(snapshot_directory, 'current_version.txt')
   version_file = open(current_version_file, 'r')
   version = version_file.read()
   version_file.close()
   return version
 
-def update_working_version(snapshot_directory, new_version = 0) -> str:
+def update_working_version(snapshot_directory :str, new_version :int = 0) -> str:
   if new_version != 0:
     version = new_version
   else:

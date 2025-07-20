@@ -3,7 +3,7 @@ from .ignore import dir_ignore, files_ignore
 import shutil
 from pathlib import Path
 
-def ready(current_dir, storage, house) -> None:
+def ready(current_dir :str, storage :str, house :str) -> None:
   directory = current_dir
   temp = os.path.join(storage, house, 'ready')
   created_directory = set()

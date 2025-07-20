@@ -1,3 +1,5 @@
 .idea
 .svcs
 __pycache__
+snapvc.egg-info
+dist
