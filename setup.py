@@ -5,7 +5,7 @@ with open("docs/README_PYPI.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="snapvc",
-    version="0.1.1",
+    version="0.1.2",
     author="Shreyash Mogaveera",
     author_email="shreyashmogaveera@gmail.com",
     description="A lightweight version control system with cross-platform support",
