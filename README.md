@@ -49,7 +49,7 @@ snapvc/
 
 3. **Verify installation:**
    ```bash
-   svcs --help
+   svcs
    ```
 
 ### Option 2: Install from PyPI (When Published)
@@ -72,7 +72,7 @@ Initialize SnapVC in the current directory:
 ```bash
 svcs init
 ```
-This creates a `.svcss` directory with the default "main" house.
+This creates a `.svcs` directory with the default "main" house.
 
 ### House Management
 

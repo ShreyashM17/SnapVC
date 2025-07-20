@@ -1,6 +1,6 @@
 # Contributing to SVCS
 
-Thank you for considering contributing to **SVCS** (Shreyash's Version Control System)!  
+Thank you for considering contributing to **Snapvc** (Simple Version Control System)!  
 Whether you're fixing bugs, suggesting improvements, or adding new features — you're welcome here. 💖
 
 ---
