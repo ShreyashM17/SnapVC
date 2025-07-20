@@ -1,19 +1,16 @@
 import os
 import pickle
-import ignore
-from snapshot import update_working_version
+from .ignore import dir_ignore, files_ignore
+from .snapshot import update_working_version
 
-dir_ignore = ignore.dir_ignore
-files_ignore = ignore.files_ignore
-
-def revert_to_snapshot(directory, house, version):
-  root_path = f'{directory}/{house}/snapshot'
-  version_path = f'{root_path}/{version}'
-  directory_list = os.listdir('..')
+def revert_to_snapshot(current_directory, directory, house, version):
+  root_path = os.path.join(directory, house, 'snapshot')
+  version_path = os.path.join(root_path, version)
+  directory_list = os.listdir(current_directory)
   if os.path.exists(version_path):
     version_files = os.listdir(version_path)
     hash_location = version_files[0]
-    snapshot_path = f'{version_path}/{hash_location}'
+    snapshot_path = os.path.join(version_path, hash_location)
     with open(snapshot_path, 'rb') as f:
       snapshot_data = pickle.load(f)
     created_directory = set()
@@ -29,7 +26,7 @@ def revert_to_snapshot(directory, house, version):
         f.write(content)
 
     current_files = set()
-    for root, dirs, files in os.walk('..', topdown=True):
+    for root, dirs, files in os.walk(current_directory, topdown=True):
       dirs[:] = [d for d in dirs if d not in dir_ignore]
       if 'svcs' in root:
         continue

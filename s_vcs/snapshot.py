@@ -15,10 +15,10 @@ def empty_ready_folder(directory):
   shutil.rmtree(directory)
   os.makedirs(directory)
 
-def snapshot(directory, current_house):
-  working_directory = f'{directory}/{current_house}'
-  ready_directory = f'{working_directory}/ready'
-  snapshot_directory = f'{working_directory}/snapshot'
+def snapshot(current_directory, directory, current_house):
+  working_directory = os.path.join(directory, current_house)
+  ready_directory = os.path.join(working_directory, 'ready')
+  snapshot_directory = os.path.join(working_directory, 'snapshot')
   if not if_directory_empty(ready_directory):
     snapshot_hash = hashlib.sha256()
     snapshot_data = {'files': {}}
@@ -30,15 +30,18 @@ def snapshot(directory, current_house):
         with open(file_path, 'rb') as f:
           content = f.read()
           snapshot_hash.update(content)
-          file_path = file_path.replace(ready_directory,'..')
+          file_path = file_path.replace(ready_directory, current_directory)
           snapshot_data['files'][file_path] = content
 
     hash_digest = snapshot_hash.hexdigest()
     snapshot_data['file_list'] = list(snapshot_data['files'].keys())
-    if not os.path.exists(f'{snapshot_directory}/{current_version(snapshot_directory)}/{hash_digest}'):
-      save_at = f'{snapshot_directory}/{update_version(snapshot_directory)}'
+    current_ver = current_version(snapshot_directory)
+    hash_path = os.path.join(snapshot_directory, current_ver, hash_digest)
+    if not os.path.exists(hash_path):
+      save_at = os.path.join(snapshot_directory, str(update_version(snapshot_directory)))
       os.makedirs(save_at)
-      with open(f'{save_at}/{hash_digest}', 'wb') as f:
+      save_file = os.path.join(save_at, hash_digest)
+      with open(save_file, 'wb') as f:
         pickle.dump(snapshot_data, f)
       print(f'Snapshot created with hash {hash_digest}')
     else:
@@ -48,7 +51,8 @@ def snapshot(directory, current_house):
     print("Nothing to Snapshot")
 
 def current_version(snapshot_directory):
-  version_file = open(f'{snapshot_directory}/version.txt', 'r')
+  version_file_path = os.path.join(snapshot_directory, 'version.txt')
+  version_file = open(version_file_path, 'r')
   version = version_file.read()
   version_file.close()
   return version
@@ -56,14 +60,16 @@ def current_version(snapshot_directory):
 def update_version(snapshot_directory):
   version = current_version(snapshot_directory)
   version = int(version) + 1
-  version_file = open(f'{snapshot_directory}/version.txt', 'w')
+  version_file_path = os.path.join(snapshot_directory, 'version.txt')
+  version_file = open(version_file_path, 'w')
   version_file.write(f'{version}')
   version_file.close()
   update_working_version(snapshot_directory)
   return version
 
 def working_version(snapshot_directory):
-  version_file = open(f'{snapshot_directory}/current_version.txt', 'r')
+  current_version_file = os.path.join(snapshot_directory, 'current_version.txt')
+  version_file = open(current_version_file, 'r')
   version = version_file.read()
   version_file.close()
   return version
@@ -73,7 +79,8 @@ def update_working_version(snapshot_directory, new_version = 0):
     version = new_version
   else:
     version = current_version(snapshot_directory)
-  version_file = open(f'{snapshot_directory}/current_version.txt', 'w')
+  current_version_file = os.path.join(snapshot_directory, 'current_version.txt')
+  version_file = open(current_version_file, 'w')
   version_file.write(f'{version}')
   version_file.close()
   return version
