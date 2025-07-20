@@ -11,10 +11,16 @@ setup(
         ]
     },
     author="Shreyash Mogaveera",
-    author_email="your@email.com",
-    description="A custom version control system CLI tool",
+    author_email="shreyashmogaveera@gmail.com",
+    license="MIT",
+    description='A simple version control system written in Python',
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/ShreyashM17/Version-control",
+    url='https://github.com/ShreyashM17/Version-control',
+    classifiers=[
+        'Programming Language :: Python :: 3',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+    ],
     python_requires='>=3.7',
 )
