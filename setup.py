@@ -1,28 +1,54 @@
 from setuptools import setup
 
-with open('Readme.md', 'r') as f:
-  description = f.read()
+with open("docs/README_PYPI.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
 
 setup(
-  name="s_vcs",                      # This name must be unique on PyPI!
-  version="0.1.0",
-  packages=["s_vcs"],
-  entry_points={
-    "console_scripts": [
-      "svcs=s_vcs.main:main",
-    ]
-  },
-  author="Shreyash Mogaveera",
-  author_email="shreyashmogaveera@gmail.com",
-  license="MIT",
-  description='A simple version control system written in Python',
-  long_description=description,
-  long_description_content_type="text/markdown",
-  url='https://github.com/ShreyashM17/Version-control',
-  classifiers=[
-    'Programming Language :: Python :: 3',
-    'License :: OSI Approved :: MIT License',
-    'Operating System :: OS Independent',
-  ],
-  python_requires='>=3.7',
+    name="snapvc",
+    version="0.1.0",
+    author="Shreyash Mogaveera",
+    author_email="shreyashmogaveera@gmail.com",
+    description="A lightweight version control system with cross-platform support",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/ShreyashM17/Version-control",
+    project_urls={
+        "Bug Tracker": "https://github.com/ShreyashM17/Version-control/issues",
+        "Documentation": "https://github.com/ShreyashM17/Version-control#readme",
+        "Source Code": "https://github.com/ShreyashM17/Version-control",
+    },
+    packages=["snapvc"],
+    entry_points={
+        "console_scripts": [
+            "svcs=snapvc.main:main",
+        ],
+    },
+    classifiers=[
+        "Intended Audience :: Developers",
+        "Intended Audience :: Education",
+        "Topic :: Software Development :: Version Control",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Operating System :: OS Independent",
+        "Environment :: Console",
+    ],
+    keywords=[
+        "version-control",
+        "vcs", 
+        "educational",
+        "git",
+        "snapshots",
+        "cross-platform",
+        "cli",
+        "learning",
+        "development-tools"
+    ],
+    python_requires=">=3.7",
+    license="MIT",
+    zip_safe=False,
 )

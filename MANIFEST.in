@@ -1,0 +1,8 @@
+# Include PyPI-specific README (instead of GitHub README)
+include docs/README_PYPI.md
+
+# Include license (may not be automatically detected)
+include LICENSE
+
+# Exclude the development README to avoid confusion
+exclude README.md
