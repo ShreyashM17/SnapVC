@@ -16,16 +16,16 @@ pip install snapvc
 ### Basic Usage
 ```bash
 # Initialize repository
-svc init
+svcs init
 
 # Stage files
-svc ready
+svcs ready
 
 # Create snapshot
-svc snapshot
+svcs snapshot
 
 # View current version
-svc current
+svcs current
 ```
 
 ## ✨ Key Features
@@ -41,14 +41,14 @@ svc current
 
 | Command | Description |
 |---------|-------------|
-| `svc init` | Initialize repository in current directory |
-| `svc ready` | Stage all files for snapshot |
-| `svc snapshot` | Create versioned snapshot of staged files |
-| `svc house new <name>` | Create new development house (branch) |
-| `svc house <name>` | Switch to existing house |
-| `svc house show` | List all available houses |
-| `svc current` | Show current version number |
-| `svc revert <version>` | Restore to specific snapshot version |
+| `svcs init` | Initialize repository in current directory |
+| `svcs ready` | Stage all files for snapshot |
+| `svcs snapshot` | Create versioned snapshot of staged files |
+| `svcs house new <name>` | Create new development house (branch) |
+| `svcs house <name>` | Switch to existing house |
+| `svcs house show` | List all available houses |
+| `svcs current` | Show current version number |
+| `svcs revert <version>` | Restore to specific snapshot version |
 
 ## 🏠 House System (Branches)
 
@@ -56,17 +56,17 @@ Houses are SnapVC's equivalent to Git branches, allowing parallel development:
 
 ```bash
 # Create feature house
-svc house new feature-auth
+svcs house new feature-auth
 
 # Work on your feature
 echo "login system" > auth.py
-svc ready && svc snapshot
+svcs ready && svcs snapshot
 
 # Switch back to main
-svc house main
+svcs house main
 
 # Switch to your feature house
-svc house feature-auth
+svcs house feature-auth
 ```
 
 ## 🔧 How It Works
@@ -80,7 +80,7 @@ SnapVC demonstrates core version control concepts:
 
 ### Storage Structure
 ```
-.svcs/
+.svcss/
 ├── house.txt              # Current active house
 ├── all_house.txt          # Available houses list
 └── main/                  # Default house
@@ -127,40 +127,40 @@ SnapVC automatically handles platform differences:
 ```bash
 # Start new project
 mkdir my-project && cd my-project
-svc init
+svcs init
 
 # Create some files
 echo "print('Hello World')" > main.py
 echo "# My Project" > README.md
 
 # Stage and snapshot
-svc ready
-svc snapshot
+svcs ready
+svcs snapshot
 
 # Create feature branch
-svc house new add-tests
+svcs house new add-tests
 echo "def test_hello(): pass" > test_main.py
 
 # Stage and snapshot feature
-svc ready
-svc snapshot
+svcs ready
+svcs snapshot
 
 # Check current state
-svc current  # Shows: You are at version 2
-svc house    # Shows: You are at add-tests
+svcs current  # Shows: You are at version 2
+svcs house    # Shows: You are at add-tests
 
 # Switch back to main
-svc house main
+svcs house main
 ls           # Only main.py and README.md (test_main.py not here)
 
 # Go back to feature
-svc house add-tests
+svcs house add-tests
 ls           # All files including test_main.py
 ```
 
 ## ⚠️ Important Notes
 
-- **Destructive Operations**: `svc revert` permanently deletes files not in target snapshot
+- **Destructive Operations**: `svcs revert` permanently deletes files not in target snapshot
 - **Working Directory**: Always run commands from your project root
 - **Binary Storage**: Snapshots are stored in binary format (not human-readable)
 - **Case Sensitivity**: House names are case-sensitive

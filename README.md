@@ -49,7 +49,7 @@ snapvc/
 
 3. **Verify installation:**
    ```bash
-   svc --help
+   svcs --help
    ```
 
 ### Option 2: Install from PyPI (When Published)
@@ -70,9 +70,9 @@ pip install snapvc
 
 Initialize SnapVC in the current directory:
 ```bash
-svc init
+svcs init
 ```
-This creates a `.svcs` directory with the default "main" house.
+This creates a `.svcss` directory with the default "main" house.
 
 ### House Management
 
@@ -80,29 +80,29 @@ Houses are similar to Git branches, allowing you to work on different versions s
 
 **View current house:**
 ```bash
-svc house
+svcs house
 ```
 
 **View all available houses:**
 ```bash
-svc house show
+svcs house show
 ```
 
 **Create a new house:**
 ```bash
-svc house new <house_name>
+svcs house new <house_name>
 ```
 
 **Switch to an existing house:**
 ```bash
-svc house <house_name>
+svcs house <house_name>
 ```
 
 ### File Staging
 
 Stage files for snapshotting (prepares files in the "ready" area):
 ```bash
-svc ready
+svcs ready
 ```
 This command stages all files from the current directory, respecting cross-platform ignore patterns.
 
@@ -110,7 +110,7 @@ This command stages all files from the current directory, respecting cross-platf
 
 Create a snapshot of all staged files:
 ```bash
-svc snapshot
+svcs snapshot
 ```
 Each snapshot is assigned:
 - An incremental version number
@@ -121,19 +121,19 @@ Each snapshot is assigned:
 
 **Check current version:**
 ```bash
-svc current
+svcs current
 ```
 
 **Check total number of snapshots:**
 ```bash
-svc snaps
+svcs snaps
 ```
 
 ### Revert to Previous Snapshots
 
 Revert your working directory to a specific snapshot:
 ```bash
-svc revert <version_number>
+svcs revert <version_number>
 ```
 This will:
 - Restore all files from the specified snapshot
@@ -144,7 +144,7 @@ This will:
 
 ### Storage Structure
 ```
-.svcs/
+.svcss/
 ├── house.txt              # Current active house
 ├── all_house.txt          # List of all available houses
 └── <house_name>/
@@ -175,9 +175,9 @@ The system automatically ignores platform-specific files and directories:
 
 **Cross-Platform Files:**
 ```
-# Windows: Thumbs.db, desktop.ini, *.tmp
+# Windows: Thumbs.db, desktop.ini
 # macOS: .DS_Store
-# Linux: .directory, *~, .cache
+# Linux: .directory, .cache
 ```
 
 ### Snapshot Data Format
@@ -195,50 +195,50 @@ Each snapshot contains:
 pip install -e .
 
 # Initialize repository
-svc init
+svcs init
 
 # Create a new feature house
-svc house new feature-branch
+svcs house new feature-branch
 
 # View all available houses
-svc house show
+svcs house show
 
 # Stage your changes
-svc ready
+svcs ready
 
 # Create a snapshot
-svc snapshot
+svcs snapshot
 
 # Check current version
-svc current
+svcs current
 
 # Check total snapshots
-svc snaps
+svcs snaps
 
 # Switch back to main
-svc house main
+svcs house main
 
 # View current house
-svc house
+svcs house
 
 # Revert to version 1 if needed
-svc revert 1
+svcs revert 1
 ```
 
 ## 📋 Complete Command Reference
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `svc init` | Initialize SnapVC repository | `svc init` |
-| `svc house` | Show current active house | `svc house` |
-| `svc house show` | List all available houses | `svc house show` |
-| `svc house <name>` | Switch to specified house | `svc house main` |
-| `svc house new <name>` | Create new house | `svc house new feature` |
-| `svc ready` | Stage files for snapshot | `svc ready` |
-| `svc snapshot` | Create snapshot from staged files | `svc snapshot` |
-| `svc current` | Show current version number | `svc current` |
-| `svc snaps` | Show total number of snapshots | `svc snaps` |
-| `svc revert <version>` | Revert to specified version | `svc revert 1` |
+| `svcs init` | Initialize SnapVC repository | `svcs init` |
+| `svcs house` | Show current active house | `svcs house` |
+| `svcs house show` | List all available houses | `svcs house show` |
+| `svcs house <name>` | Switch to specified house | `svcs house main` |
+| `svcs house new <name>` | Create new house | `svcs house new feature` |
+| `svcs ready` | Stage files for snapshot | `svcs ready` |
+| `svcs snapshot` | Create snapshot from staged files | `svcs snapshot` |
+| `svcs current` | Show current version number | `svcs current` |
+| `svcs snaps` | Show total number of snapshots | `svcs snaps` |
+| `svcs revert <version>` | Revert to specified version | `svcs revert 1` |
 
 ## 🌟 What Makes SnapVC Special
 
@@ -265,7 +265,7 @@ svc revert 1
 ## ⚠️ Important Notes
 
 - **Working Directory**: Run SnapVC commands from your project's root directory
-- **Initialization Required**: Must run `svc init` before using other commands
+- **Initialization Required**: Must run `svcs init` before using other commands
 - **Binary Storage**: Snapshots use binary serialization (platform-independent but not human-readable)
 - **Destructive Revert**: Reverting permanently deletes files not in target snapshot
 - **Case Sensitivity**: House names are case-sensitive
@@ -277,11 +277,11 @@ svc revert 1
 ### Running Tests
 ```bash
 # Basic functionality test
-svc init
+svcs init
 echo "Hello World" > test.txt
-svc ready
-svc snapshot
-svc current
+svcs ready
+svcs snapshot
+svcs current
 ```
 
 ### Development Installation
