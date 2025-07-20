@@ -1,6 +1,9 @@
-# ✨ Feature Request
-
-Thanks for suggesting a new feature for SVCS!
+---
+name: Feature request
+about: Thanks for suggesting a new feature for SVCS!
+title: ''
+labels: ''
+assignees: ''
 
 ---
 

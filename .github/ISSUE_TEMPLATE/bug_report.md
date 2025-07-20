@@ -1,6 +1,9 @@
-# 🐞 Bug Report
-
-Thanks for reporting a bug!
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
@@ -42,4 +45,4 @@ Please attach any screenshots, log outputs, or related information.
 ## ✅ Checklist
 
 - [ ] I’ve verified this issue hasn’t already been reported
-- [ ] I’ve provided all required information abov
+- [ ] I’ve provided all required information above
