@@ -75,7 +75,7 @@ def main() -> None:
     elif command[2] == 'show':
       print(f"You have houses at\n {all_house(directory)}")
     else:
-      statement = move_house(directory, command[2])
+      statement = move_house(current_directory, directory, command[2])
       print(statement)
   elif command[1] == 'ready':
     ready(current_directory, directory, house)

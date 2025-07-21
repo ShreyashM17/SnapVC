@@ -1,7 +1,9 @@
 import os
+from .revert import revert_to_snapshot
+from .snapshot import working_version
 
 def new_house(path :str, house_name :str) -> str:
-  location = os.path.join(path, house_name)  # Cross-platform path
+  location = os.path.join(path, house_name)
   if os.path.exists(location):
     return 'Already exists please choose other name'
   else:
@@ -11,10 +13,10 @@ def new_house(path :str, house_name :str) -> str:
     return f'You are at {house_name}'
 
 def generate_rooms(path :str) -> None:
-  snapshot = os.path.join(path, 'snapshot')  # Cross-platform path
-  ready = os.path.join(path, 'ready')  # Cross-platform path
-  version = os.path.join(snapshot, "version.txt")  # Cross-platform path
-  current_version = os.path.join(snapshot, "current_version.txt")  # Cross-platform path
+  snapshot = os.path.join(path, 'snapshot')
+  ready = os.path.join(path, 'ready')
+  version = os.path.join(snapshot, "version.txt")
+  current_version = os.path.join(snapshot, "current_version.txt")
   os.makedirs(snapshot)
   os.makedirs(ready)
   with open(version, "w") as f:
@@ -24,7 +26,7 @@ def generate_rooms(path :str) -> None:
 
 def current_house(directory :str) -> str:
   try:
-    house_file = os.path.join(directory, 'house.txt')  # Cross-platform path
+    house_file = os.path.join(directory, 'house.txt')
     house = open(house_file,'r')
     current = house.read()
     house.close()
@@ -34,23 +36,26 @@ def current_house(directory :str) -> str:
     return 'Point of no return'
 
 def update_house(path :str, house :str) -> None:
-  house_file = os.path.join(path, "house.txt")  # Cross-platform path
-  all_house_file = os.path.join(path, "all_house.txt")  # Cross-platform path
+  house_file = os.path.join(path, "house.txt")
+  all_house_file = os.path.join(path, "all_house.txt")
   with open(house_file, "w") as f:
     f.write(house)
   with open(all_house_file, "a") as f:
     f.write(f"\n{house}")
 
-def move_house(path :str, house :str) -> str:
-  house_location = os.path.join(path, house)  # Cross-platform path
+def move_house(current_directory :str, path :str, house :str) -> str:
+  house_location = os.path.join(path, house)
+  snapshot_dir = os.path.join(house_location, 'snapshot')
   if os.path.exists(house_location):
     update_house(path, house)
+    version = working_version(snapshot_dir)
+    revert_to_snapshot(current_directory, path, house, version)
     return f'You are at {house}'
   else:
     return 'House does not exists'
 
 def all_house(path :str) -> str:
-  all_house_file = os.path.join(path, 'all_house.txt')  # Cross-platform path
+  all_house_file = os.path.join(path, 'all_house.txt')
   house = open(all_house_file, 'r')
   all_houses = house.read().strip()
   house.close()
