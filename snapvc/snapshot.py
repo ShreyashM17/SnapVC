@@ -49,7 +49,7 @@ def snapshot(current_directory :str, directory :str, current_house :str) -> None
         data_json_dump(json_file, hash_data)
         with open(save_file, 'wb') as snap_file:
           pickle.dump(snapshot_data, snap_file)
-        print(f'Snapshot created with hash {hash_digest}')
+    print(f'Snapshot created')
     empty_ready_folder(ready_directory)
   else:
     print("Nothing to Snapshot")
