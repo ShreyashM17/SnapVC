@@ -5,7 +5,7 @@ from .utils import working_version, data_json_dump
 def new_house(path :str, house_name :str) -> str:
   location = os.path.join(path, house_name)
   if os.path.exists(location):
-    return f'{house_name} already exists please choose other name '
+    return f'{house_name} already exists please choose other name'
   else:
     os.makedirs(location)
     generate_rooms(location)
