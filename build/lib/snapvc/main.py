@@ -1,5 +1,4 @@
-from .snapshot import snapshot
-from .utils import current_version, working_version
+from .snapshot import snapshot, working_version, current_version
 from .staging import ready
 from .revert import revert_to_snapshot
 from .housing import new_house, current_house, move_house, all_house
