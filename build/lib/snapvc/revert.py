@@ -1,5 +1,7 @@
 import os
-from .utils import data_json_load, data_json_dump, update_working_version, add_files, delete_files
+import pickle
+from .snapshot import update_working_version
+from .staging import data_json_load
 
 def revert_to_snapshot(directory :str, house :str, version :str) -> None:
   housing_path = os.path.join(directory, house)
@@ -15,7 +17,7 @@ def revert_to_snapshot(directory :str, house :str, version :str) -> None:
     return
   for file in json_data:
     if file == 'current_version':
-      json_data['current_version'] = version_int
+      update_working_version(housing_path, version_int)
       continue
     elif file == 'all_versions':
       continue
@@ -34,6 +36,19 @@ def revert_to_snapshot(directory :str, house :str, version :str) -> None:
             file_hash = list_data[f'{available}']
             break
       add_files(file, root_path, file_hash)
-      json_data[file]["updated_hash"] = file_hash
-  data_json_dump(json_path, json_data)
   print(f'Reverted to snapshot {version}')
+
+def delete_files(file_path :str) -> None:
+  if os.path.exists(file_path):
+    os.remove(file_path)
+    print(f'Removed files: {file_path}')
+
+def add_files(file_path :str, snapshot_path :str ,file_hash :str) -> None:
+  file_version = os.path.join(snapshot_path, file_hash)
+  with open(file_version, 'rb') as file_content:
+    content = pickle.load(file_content)
+  directory = os.path.dirname(file_path)
+  if not os.path.exists(directory):
+    os.makedirs(directory, exist_ok=True)
+  with open(file_path, 'wb') as f:
+    f.write(content)

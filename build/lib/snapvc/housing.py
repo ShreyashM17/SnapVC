@@ -1,11 +1,12 @@
 import os
 from .revert import revert_to_snapshot
-from .utils import working_version, data_json_dump
+from .snapshot import working_version
+import json
 
 def new_house(path :str, house_name :str) -> str:
   location = os.path.join(path, house_name)
   if os.path.exists(location):
-    return f'{house_name} already exists please choose other name '
+    return 'Already exists please choose other name'
   else:
     os.makedirs(location)
     generate_rooms(location)
@@ -15,11 +16,12 @@ def new_house(path :str, house_name :str) -> str:
 def generate_rooms(path :str) -> None:
   snapshot = os.path.join(path, 'snapshot')
   ready = os.path.join(path, 'ready')
-  data_file_path = os.path.join(path, "data.json")
+  data = os.path.join(path, "data.json")
   os.makedirs(snapshot)
   os.makedirs(ready)
-  content = {"current_version": 0, "all_versions": []}
-  data_json_dump(data_file_path, content)
+  with open(data, "w") as f:
+    content = {"current_version": 0, "all_versions" : []}
+    json.dump(content,f)
 
 def current_house(directory :str) -> str:
   try:
