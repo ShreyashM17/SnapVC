@@ -75,8 +75,8 @@ your-project/
 │   ├── main/                  # Default house
 │   │   ├── data.json          # Version metadata
 │   │   ├── ready/             # Staging area
-│   │   └── snapshot/          # Content-addressable storage
-│   │       ├── a1b2c3d4...    # Files stored by SHA-256 hash
+│   │   └── snapshot/          # Content-addressable storage (gzipped)
+│   │       ├── a1b2c3d4...    # Files stored by SHA-256 hash (compressed)
 │   │       └── e5f6g7h8...    # Automatic deduplication
 │   └── feature/               # Other houses (independent metadata, shared content)
 └── your-files.txt
@@ -103,6 +103,7 @@ your-project/
 
 - **Content Deduplication**: Identical files share storage across houses
 - **Hash-Based Integrity**: SHA-256 ensures data integrity and enables O(1) lookup
+- **Gzipped Storage**: Snapshot files are compressed for efficient storage
 - **File Lifecycle Tracking**: Automatic detection of additions, modifications, deletions
 - **Cross-Platform Paths**: OS-agnostic path handling with proper normalization
 - **Smart Ignore Patterns**: Platform-specific files automatically excluded
@@ -112,7 +113,7 @@ your-project/
 Learn core version control concepts:
 - **Staging Areas** and commit preparation
 - **Content Hashing** and integrity verification  
-- **Binary Serialization** for efficient storage
+- **Binary Serialization** and compression (gzip) for efficient storage
 - **Content-Addressable Storage** and deduplication
 - **Branch-like Systems** for parallel workflows
 - **CLI Design** and cross-platform development
@@ -125,6 +126,7 @@ Learn core version control concepts:
 - House names are case-sensitive
 - Version numbering starts from 1
 - Content stored by SHA-256 hash for deduplication and integrity
+- Snapshot files are gzipped for efficient storage
 
 ## 🧪 Testing
 

@@ -26,6 +26,7 @@ svcs snaps    # Total snapshots
 
 - **🏠 House System**: Git-like branches for parallel development
 - **📸 Content-Addressable Storage**: SHA-256 hashing with automatic deduplication
+- **🗜️ Gzipped Storage**: Compressed snapshots for efficient disk usage
 - **🌍 Cross-Platform**: Windows, macOS, Linux support
 - **📚 Educational**: Learn version control internals hands-on
 - **📦 Zero Dependencies**: Python standard library only
@@ -61,6 +62,7 @@ svcs house feature  # feature.py reappears
 
 - **Staging**: Files prepared in "ready" area before snapshotting
 - **Hashing**: SHA-256 ensures integrity and enables deduplication
+- **Compression**: Gzipped storage for efficient disk usage
 - **Storage**: Content-addressable storage with automatic file sharing
 - **Houses**: Independent version histories with shared content pool
 
@@ -70,7 +72,7 @@ svcs house feature  # feature.py reappears
 ├── main/              # Default house
 │   ├── data.json      # Version metadata
 │   ├── ready/         # Staging area
-│   └── snapshot/      # Content by hash
+│   └── snapshot/      # Content by hash (gzipped)
 └── feature/           # Other houses
 ```
 
