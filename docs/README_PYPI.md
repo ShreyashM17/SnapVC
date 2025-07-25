@@ -92,7 +92,7 @@ svcs house feature  # feature.py reappears
 ## 📚 Documentation
 
 For detailed documentation, examples, and architecture details, visit:
-[https://github.com/ShreyashM17/Version-control](https://github.com/ShreyashM17/Version-control)
+[https://github.com/ShreyashM17/SnapVC](https://github.com/ShreyashM17/Snapvc)
 
 ## 📝 License & Author
 
