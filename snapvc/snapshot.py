@@ -1,7 +1,4 @@
-import os
-import hashlib
-import pickle
-import shutil
+import os, hashlib, pickle, shutil, gzip
 from .utils import update_version, data_json_dump, data_json_load
 
 def if_directory_empty(directory :str) -> bool:
@@ -46,7 +43,7 @@ def snapshot(current_directory :str, directory :str, current_house :str) -> None
           data["all_hashes"][current_ver] = hash_digest
           hash_data[file_path] = data
         save_file = os.path.join(snapshot_directory, hash_digest)
-        with open(save_file, 'wb') as snap_file:
+        with gzip.open(save_file, 'wb') as snap_file:
           pickle.dump(snapshot_data, snap_file)
     data_json_dump(json_file, hash_data)
     print(f'Snapshot created')

@@ -1,7 +1,4 @@
-import os
-import json
-import hashlib
-import pickle
+import os, json, hashlib, pickle, gzip
 
 def current_version(directory :str) -> str:
   version_file_path = os.path.join(directory, 'data.json')
@@ -65,7 +62,7 @@ def delete_files(file_path :str) -> None:
 
 def add_files(file_path :str, snapshot_path :str ,file_hash :str) -> None:
   file_version = os.path.join(snapshot_path, file_hash)
-  with open(file_version, 'rb') as file_content:
+  with gzip.open(file_version, 'rb') as file_content:
     content = pickle.load(file_content)
   directory = os.path.dirname(file_path)
   if not os.path.exists(directory):

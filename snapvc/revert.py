@@ -1,5 +1,5 @@
 import os
-from .utils import data_json_load, data_json_dump, update_working_version, add_files, delete_files
+from .utils import data_json_load, data_json_dump, add_files, delete_files
 
 def revert_to_snapshot(directory :str, house :str, version :str) -> None:
   housing_path = os.path.join(directory, house)
