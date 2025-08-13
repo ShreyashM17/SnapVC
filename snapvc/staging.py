@@ -1,8 +1,7 @@
-import os
+import os, pickle, shutil
 from .ignore import dir_ignore, files_ignore
-import shutil
 from pathlib import Path
-from .utils import data_json_load, data_json_dump, hashing, current_version
+from .utils import data_json_load, hashing
 
 def ready(current_dir :str, storage :str, house :str) -> None:
   directory = current_dir
@@ -34,13 +33,15 @@ def ready(current_dir :str, storage :str, house :str) -> None:
         os.makedirs(folder, exist_ok=True)
         created_directory.add(relative)
       shutil.copy2(file_path, folder)
-  check_files_to_delete(house_path, json_file, existing_files_with_hashes, present_file_path, hash_data)
+  files_to_be_deleted(temp, existing_files_with_hashes, present_file_path)
 
-def check_files_to_delete(house_path :str, json_path :str ,existing_files_with_hashes :set, present_file_path :set, hash_data :dict):
+def files_to_be_deleted(temp_path :str,existing_files_with_hashes :set, present_file_path :set) -> None:
+  file_path = os.path.join(temp_path, 'to_be_deleted')
+  if os.path.exists(file_path):
+    os.remove(file_path)
   existing_files_with_hashes.remove("current_version")
   existing_files_with_hashes.remove("all_versions")
-  files_deleted = existing_files_with_hashes - present_file_path
-  if files_deleted:
-    for file in files_deleted:
-      hash_data[file]["deleted_in"] = int(current_version(house_path)) + 1
-    data_json_dump(json_path, hash_data)
+  set_of_files_to_be_deleted :set = existing_files_with_hashes - present_file_path
+  if set_of_files_to_be_deleted:
+    with open(file_path, 'wb') as data_file:
+      pickle.dump(set_of_files_to_be_deleted, data_file)
