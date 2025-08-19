@@ -1,12 +1,13 @@
 # SnapVC - Simple Version Control System
 
-A Python-based educational version control system inspired by Git. Features a unique "house" system (similar to branches), content-addressable storage, and cross-platform compatibility.
+A lightweight, Python-based version control system inspired by Git. Features a unique "house" system (similar to branches), content-addressable storage with gzip compression, and cross-platform compatibility.
 
 ## ✨ Key Features
 
 - **🏠 House System**: Git-like branches for parallel development
 - **📋 Staging & Snapshots**: Stage files and create versioned snapshots with SHA-256 hashing
 - **🔍 Content-Addressable Storage**: Hash-based storage with automatic deduplication
+- **🗜️ Gzipped Storage**: Compressed snapshots for efficient disk usage
 - **📊 JSON Metadata**: Structured version tracking with complete file lifecycle
 - **⏪ Smart Reversion**: Intelligent file restoration with proper lifecycle management
 - **🌍 Cross-Platform**: Works seamlessly on Windows, macOS, and Linux
@@ -16,8 +17,8 @@ A Python-based educational version control system inspired by Git. Features a un
 
 ```bash
 # From source (recommended for development)
-git clone https://github.com/ShreyashM17/Version-control.git
-cd Version-control
+git clone https://github.com/ShreyashM17/SnapVC.git
+cd SnapVC
 pip install -e .
 
 # From PyPI (when published)
@@ -108,15 +109,18 @@ your-project/
 - **Cross-Platform Paths**: OS-agnostic path handling with proper normalization
 - **Smart Ignore Patterns**: Platform-specific files automatically excluded
 
-## 📚 Educational Value
+## 📚 Learning Concepts
 
-Learn core version control concepts:
-- **Staging Areas** and commit preparation
+While SnapVC started as a side project, it demonstrates several important software engineering concepts:
+
+- **Staging Areas** and commit preparation workflows
 - **Content Hashing** and integrity verification  
 - **Binary Serialization** and compression (gzip) for efficient storage
-- **Content-Addressable Storage** and deduplication
-- **Branch-like Systems** for parallel workflows
-- **CLI Design** and cross-platform development
+- **Content-Addressable Storage** and deduplication strategies
+- **Branch-like Systems** for parallel development workflows
+- **CLI Design** and cross-platform development considerations
+
+These concepts are valuable for understanding how real version control systems work under the hood.
 
 ## ⚠️ Important Notes
 
@@ -150,4 +154,4 @@ svcs house new feature && svcs ready && svcs snapshot  # Shared storage
 
 ---
 
-**Learn version control internals with SnapVC! 🚀**
+**A lightweight version control system that's both practical and educational! 🚀**

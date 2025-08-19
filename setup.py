@@ -5,17 +5,17 @@ with open("docs/README_PYPI.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="snapvc",
-    version="1.2.0",
+    version="1.2.1",
     author="Shreyash Mogaveera",
     author_email="shreyashmogaveera@gmail.com",
     description="A lightweight version control system with cross-platform support",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ShreyashM17/Version-control",
+    url="https://github.com/ShreyashM17/SnapVC",
     project_urls={
-        "Bug Tracker": "https://github.com/ShreyashM17/Version-control/issues",
-        "Documentation": "https://github.com/ShreyashM17/Version-control#readme",
-        "Source Code": "https://github.com/ShreyashM17/Version-control",
+        "Bug Tracker": "https://github.com/ShreyashM17/SnapVC/issues",
+        "Documentation": "https://github.com/ShreyashM17/SnapVC#readme",
+        "Source Code": "https://github.com/ShreyashM17/SnapVC",
     },
     packages=["snapvc"],
     entry_points={

@@ -1,13 +1,14 @@
-from .snapshot import snapshot
+from .snapshot import SNAPSHOT
 from .utils import current_version, working_version
-from .staging import ready
-from .revert import revert_to_snapshot
-from .housing import new_house, current_house, move_house, all_house
+from .staging import STAGING
+from .revert import REVERT
+from .housing import HOUSE
 import os
 import sys
 
 directory = '.svcs'
 house = ''
+housing = HOUSE(directory)
 current_directory = os.getcwd()
 
 def init_svcs() -> None:
@@ -15,8 +16,8 @@ def init_svcs() -> None:
   if not svcs_initialized():
     os.makedirs(directory, exist_ok=True)
     house = 'main'
-    name = new_house(directory,house)
-    print(f'SVCS initialized\n {name}')
+    housing.new_house(house)
+    print(f'SVCS initialized\n Current house: {house}')
     house_file = os.path.join(directory, "house.txt")
     all_house_file = os.path.join(directory, "all_house.txt")
     with open(house_file, "w") as f:
@@ -61,7 +62,7 @@ def main() -> None:
     print("SVCS not initialized please run \n svcs init")
     return
 
-  house = current_house(directory)
+  house = housing.current_house()
   housing_path = os.path.join(directory, house)
   if command[1] == 'house':
     if command_length < 3:
@@ -70,21 +71,26 @@ def main() -> None:
 
     if command[2] == 'new':
       if command_length > 3:
-        statement = new_house(directory, command[3])
+        statement = housing.new_house(command[3])
         print(statement)
       else:
         print("Please define house name")
     elif command[2] == 'show':
-      print(f"You have houses at\n {all_house(directory)}")
+      print(f"You have houses at\n {housing.all_house()}")
     else:
-      statement = move_house(directory, command[2])
+      statement = housing.move_house(command[2])
       print(statement)
   elif command[1] == 'ready':
-    ready(current_directory, directory, house)
+    staging = STAGING(current_directory, directory, house)
+    staging.ready()
   elif command[1] == 'snapshot':
-    snapshot(current_directory, directory, house)
+    commiting = SNAPSHOT(current_directory, directory, house)
+    commiting.snapshot()
   elif command[1] == 'revert':
-    revert_to_snapshot(directory, house, command[2])
+    if command_length > 2:
+      REVERT(directory, house, command[2]).soft_revert()
+    else:
+      print("Please define the version")
   elif command[1] == 'current':
     print(f'You are at version {working_version(housing_path)}')
   elif command[1] == 'snaps':

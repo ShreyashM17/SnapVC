@@ -1,6 +1,6 @@
 # Cross-platform ignore patterns
 dir_ignore = [
-    ".venv", ".git", ".idea", "__pycache__", 
+    ".venv", ".git", ".idea", "__pycache__", "venv",
     "Version-control", ".svcs", "svcs",
     # Windows specific
     "node_modules", ".vs", "bin", "obj",
